@@ -147,7 +147,7 @@ public class MainActivity extends Activity implements Library.Listener, MusicSer
             for (int i = 0; i < names.length; i++) {
                 names[i] = (L.CODES[i].equals(L.lang()) ? "●  " : "") + L.NAMES[i];
             }
-            Sheet.menu(root, L.t("Dil") + " / Language", names, i -> {
+            Sheet.menu(root, ("en".equals(L.lang()) ? "Language" : L.t("Dil") + " / Language"), names, i -> {
                 if (L.CODES[i].equals(L.lang())) return;
                 L.set(this, L.CODES[i]);
                 recreate();
