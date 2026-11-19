@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MusicTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:colorAccent">#FFFFD60A</item>
+        <item name="android:colorPrimary">#FF0E0E0E</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+    <color name="bg">#FF0E0E0E</color>
+</resources>

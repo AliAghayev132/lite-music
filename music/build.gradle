@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.application'
+}
+
+def ksFile = rootProject.file('keystore.properties')
+def ks = new Properties()
+if (ksFile.exists()) ksFile.withInputStream { ks.load(it) }
+
+android {
+    namespace = 'az.lite.music'
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = 'az.lite.music'
+        minSdk = 21
+        targetSdk = 35
+        versionCode = 1
+        versionName = '1.0'
+    }
+
+    signingConfigs {
+        // Google Play üçün yükləmə açarı (keystore.properties layihənin kökündə)
+        upload {
+            if (ksFile.exists()) {
+                storeFile = rootProject.file(ks['storeFile'])
+                storePassword = ks['storePassword']
+                keyAlias = ks['keyAlias']
+                keyPassword = ks['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        // Android Studio-dakı "Run" da tam optimizasiyalı versiya qursun (R8 + resurs sıxma, debug yox)
+        debug {
+            debuggable = false
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            signingConfig = ksFile.exists() ? signingConfigs.upload : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+// Heç bir kitabxana yoxdur: yalnız Android-in öz API-ləri
+dependencies {
+}
